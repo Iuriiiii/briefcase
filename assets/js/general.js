@@ -30,11 +30,10 @@ window.addEventListener('load', () => {
 
     console.log(location.hash);
     
-    if(location.hash !== '')
-        if(location.hash !== '#start')
-            slideTo(location.hash);
-        else
-            startStart();
+    if(['', '#start'].includes(location.hash))
+        startStart();
+    else
+        slideTo(location.hash);
 
     proactivityLine = document.querySelector('#proactivity-line');
 
