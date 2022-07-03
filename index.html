@@ -5,16 +5,21 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/assets/css/s.css">
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon-32x32.png">
+        <link rel="icon" href="/favicon-16x16.png">
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet"> -->
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,200&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!-- Scripts -->
         <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
         <script src="/assets/js/general.js"></script>
         <script src="/assets/js/start.js"></script>
-        <title>Briefcase</title>
+        <script src="/assets/js/tecs.js"></script>
+        <title>Briefcase - Oscar Alexander Casas 👌</title>
     </head>
     <body>
         <header>
@@ -28,50 +33,55 @@
         <main>
             <section id="start" class="container first fade active">
                     <div>
-                        <h1 class="white center inline-block" id="start-title"></h1><h1 class="inline-block edit-effect">|</h1>
+                        <h2 class="white inline-block" id="start-title"></h2>
+                        <!-- <h2 class="inline-block edit-effect">|</h2> -->
                     </div>
                     <!-- <div>
                         <img src="/assets/img/mobile.svg" alt="mobile-logo" class="invert">
                     </div> -->
                     <div id="attributes" class="hide">
-                        <h3>Attributes</h3>
-                        <div class="flex flex-column-reverse">
+                        <!-- <h3>Attributes</h3> -->
+                        <div class="flex-childs flex flex-column-reverse">
                             <div>
-                                <label>Creativity:</label> <div class="progress-bar"><div class="progress-line" style="width: 28%;"></div></div><br>
+                                <label>Creativity</label> <div class="progress-bar"><div class="progress-line" style="width: 28%;"></div></div><br>
                             </div>
                             <div>
-                                Proactivity: <div class="progress-bar"><div id="proactivity-line" class="progress-line" style="width: 96%;"></div></div>
+                                <label>Proactivity</label> <div class="progress-bar"><div id="proactivity-line" class="progress-line" style="width: 96%;"></div></div>
                             </div>
                             <div>
-                                Resolution: <div class="progress-bar"><div class="progress-line" style="width: 90%;"></div></div>
+                                <label>Resolution</label> <div class="progress-bar"><div class="progress-line" style="width: 90%;"></div></div>
                             </div>
                             <div>
-                                Programming Logic: <div class="progress-bar"><div class="progress-line" style="width: 95%;"></div></div>
+                                <label>Logic</label> <div class="progress-bar"><div class="progress-line" style="width: 95%;"></div></div>
                             </div>
                             <div>
-                                Love4Code: <div class="progress-bar"><div class="progress-line" style="width: 100%;"></div></div>
+                                <label><i class="material-icons" style="font-size: 16px; color: palevioletred">favorite</i>4<i class="material-icons"  style="font-size: 16px">code</i></label> <div class="progress-bar"><div class="progress-line" style="width: 100%;"></div></div>
                             </div>
                         </div>
                     </div>
             </section>
 
             <section  id="tecs"  class="container fade second">
-                <header>
-                    <h1>Tecnologies</h1>
-                </header>
-                <main>
-                    <img src="/assets/img/jquery-logo.png" alt="jquery-logo" class="img-sz-s border-15">
-                    <img src="/assets/img/nodejs-logo.png" alt="nodejs-logo" class="img-sz-s border-15">
-                    <img src="/assets/img/html5-logo.png" alt="html5-logo" class="img-sz-s border-15">
-                    <img src="/assets/img/css3-logo.png" alt="css3-logo" class="img-sz-s border-15">
-                    <img src="/assets/img/autoit-logo.png" alt="autoit-logo" class="img-sz-s border-15">
-                    <img src="/assets/img/lua-logo.png" alt="lua-logo" class="img-sz-s border-15">
-                    <img src="/assets/img/react-logo.png" alt="react-logo" class="img-sz-s border-15">
-                    <img src="/assets/img/github-logo.png" alt="github-logo" class="img-sz-s border-15">
-                    <br>
-                    <img src="/assets/img/expressjs-logo.png" alt="expressjs-logo" class="img-sz-l border-15">
-                    <img src="/assets/img/rest-api-logo.svg" alt="restapi-logo" class="img-sz-l border-15">
-                </main>
+                <div>
+                    <div>
+                        <h2>Tecnologies that i know</h2>
+                    </div>
+                    <div id="tecs-images">
+                        <img src="/assets/img/jquery-logo.png" alt="jquery-logo" class="img-sz-s fadepush border-15">
+                        <img src="/assets/img/nodejs-logo.png" alt="nodejs-logo" class="img-sz-s fadepush border-15">
+                        <img src="/assets/img/html5-logo.png" alt="html5-logo" class="img-sz-s fadepush border-15">
+                        <img src="/assets/img/css3-logo.png" alt="css3-logo" class="img-sz-s fadepush border-15">
+                        <!-- <br> -->
+                        <img src="/assets/img/autoit-logo.png" alt="autoit-logo" class="img-sz-s fadepush border-15">
+                        <img src="/assets/img/lua-logo.png" alt="lua-logo" class="img-sz-s fadepush border-15">
+                
+                        <img src="/assets/img/react-logo.png" alt="react-logo" class="img-sz-s fadepush border-15">
+                        <img src="/assets/img/github-logo.png" alt="github-logo" class="img-sz-s fadepush border-15">
+                        <br>
+                        <img src="/assets/img/expressjs-logo.png" alt="expressjs-logo" class="img-sz-l fadepush border-15">
+                        <img src="/assets/img/rest-api-logo.svg" alt="restapi-logo" class="img-sz-l fadepush border-15">
+                    </div>
+                </div>
             </section>
 
             <section class="container fade third">

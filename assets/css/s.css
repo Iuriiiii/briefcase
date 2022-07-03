@@ -1,18 +1,10 @@
 :root {
     --lighten-percentage: 30%;
 
-    --bg-color-h: 0;
-    --bg-color-s: 0%;
-    --bg-color-l: 90%;
+    --bg-color: rgb(230, 230, 230);
+    --txt-color: rgb(36, 36, 36);
 
-    --txt-color-h: 150;
-    --txt-color-s: 33%;
-    --txt-color-l: 1%;
-
-    --bg-color: hsl(var(--bg-color-h), var(--bg-color-s), var(--bg-color-l));
-    --txt-color: hsl(var(--txt-color-h), var(--txt-color-s), var(--txt-color-l));
-
-    --txt-light-color: hsl(var(--txt-color-h), var(--txt-color-s), calc(var(--txt-color-l) + var(--lighten-percentage)));
+    --txt-light-color: lighter(var(--bg-color), var(--lighten-percentage));
 }
 
 * {
@@ -26,12 +18,10 @@ nav {
 body {
     background-color: var(--bg-color);
     font-family: 'Montserrat', sans-serif;  ;
-    background-image: url('/assets/img/wave-i.svg');
-    filter: invert(100%);
-}
-
-body > * { /* Mi propio hack */
-    filter: invert(100%);
+    background-image: url('/assets/img/wave-i.svg'), url('/assets/img/circle.svg');
+    /* background-repeat: no-repeat, no-repeat;
+    background-position: initial, right top; */
+    filter: invert(100%), invert(100%);
 }
 
 a {
@@ -45,13 +35,14 @@ a:visited, a:link, a:active {
     color: var(--txt-color);
 }
 
-a[active] {
-    color: var(--txt-light-color);
-}
+/* a[active] {
+    
+} */
 
 a:hover {
+    color: brightness(110%);
     text-decoration: underline;
-    color: var(--txt-light-color);
+    
 }
 
 body > main {
@@ -59,10 +50,6 @@ body > main {
     justify-content: center;
     height: 90vh;
     align-items: center;
-}
-
-.content-center {
-    text-align: center;
 }
 
 .container {
@@ -76,13 +63,14 @@ body > main {
     font-family: monospace;
 }
 
-.container > * {
+.container > div {
     text-align: center;
 }
 
 .active {
     display: block;
     width: 700px;
+    text-align: center;
 }
 
 .inline-block {
@@ -99,13 +87,16 @@ img {
 }
 
 .img-sz-s {
-    width: 100px;
-    height: 100px;
+    width: 12%;
+    height: 12%;
 }
 
 .img-sz-l {
-    width: 270px;
-    height: 100px;
+    /* width: 270px; */
+    width: 36%;
+    /* height: 100px; */
+    height: 16%;
+    max-height: 55px;
 }
 
 .border-60 {
@@ -140,8 +131,36 @@ img {
 }
 
 .progress-line {
-    background-color: grey;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 154, 0, 1) 10%,
+        rgba(208, 222, 33, 1) 20%,
+        rgba(79, 220, 74, 1) 30%,
+        rgba(63, 218, 216, 1) 40%,
+        rgba(47, 201, 226, 1) 50%,
+        rgba(28, 127, 238, 1) 60%,
+        rgba(95, 21, 242, 1) 70%,
+        rgba(186, 12, 248, 1) 80%,
+        rgba(251, 7, 217, 1) 90%,
+        rgba(255, 0, 0, 1) 100%
+    );
     height: 8px;
+}
+
+.flex-childs > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-childs > div label {
+    flex-basis: 15%;
+    text-align: left;
+}
+
+.flex-childs > div label::after {
+    content: "\00a0";
 }
 
 .flex {
@@ -160,17 +179,22 @@ img {
     display: block;
     max-height: 0px;
     animation-name: expand;
-    animation-duration: 4s;
+    animation-duration: 2s;
     animation-fill-mode: forwards;
     overflow: hidden;
 }
 
+/* .content-center {
+} */
+
 @keyframes expand {
     from {
         max-height: 0px;
+        max-width: 0px;
     }
     to {
         max-height: 500px;
+        max-width: 900px;
     }
 }
 
@@ -180,9 +204,8 @@ img {
     animation-duration: 1.5s;
 }
 
-.fade-ii {
-    animation-name: fade;
-    animation-delay: 0.5s;
+.fadepush {
+    animation-name: fadepush;
     animation-duration: 1.5s;
 }
 
@@ -190,3 +213,71 @@ img {
     from {opacity: 0}
     to {opacity: 1}
 }
+
+@keyframes fadepush {
+    from {
+        width: 20ex;
+        height: 20ex;
+        opacity: 0;
+    }
+
+    to {
+        width: -20ex;
+        height: -20ex;
+        opacity: 1;
+    }
+}
+
+#start-title::after {
+    content: '|';
+    animation: fade 0.7s linear infinite alternate;
+}
+
+@media screen and (min-width: 425px)
+{
+    .img-sz-l {
+        max-height: 65px;
+    }
+}
+
+@media screen and (min-width: 768px)
+{
+    .img-sz-l {
+        max-height: 80px;
+    }
+}
+
+/* @media screen and (min-width: 900px)
+{
+    #tecs-images br:nth-child(1n)
+    {
+        display: none;
+    }
+} */
+
+/* @media screen and (max-width: 650px)
+{
+    .img-sz-s {
+        width: 80px;
+        height: 80px;
+    }
+
+    .img-sz-l {
+        width: 150px;
+        height: 80px;
+    }
+
+    @keyframes fadepush {
+        from {
+            width: 13ex;
+            height: 13ex;
+            opacity: 0;
+        }
+    
+        to {
+            width: -13ex;
+            height: -13ex;
+            opacity: 1;
+        }
+    }
+} */

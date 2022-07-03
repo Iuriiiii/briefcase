@@ -1,11 +1,11 @@
-let firstTitleContent = 'Programmer, Designer &amp; Web Developer';
+
+
 let keySounds = [
     ('/assets/sounds/keyboard-key-i.mp3'),
     ('/assets/sounds/keyboard-key-ii.mp3'),
     ('/assets/sounds/keyboard-key-iii.mp3')
 ];
 let started = false;
-
 Array.prototype.getRandom = function()
 {
     return this[Math.floor(Math.random() * this.length)];
@@ -15,6 +15,10 @@ Array.prototype.playRandom = function()
 {
     new Audio(this.getRandom()).play().catch(() => {});
 };
+
+let titleContent = [
+    'Hi! i\'m Alexander<br>Programmer, Designer &amp; Web Developer'
+].getRandom();
 
 function startStart()
 {
@@ -30,24 +34,26 @@ function startStart()
 
     let h1TitleInterval = setInterval(() => {
         // console.log(h1TitleInterval, h1Title.innerHTML.length);
-        h1Title.innerHTML = firstTitleContent.slice(0, h1Title.innerHTML.length+1);
+        h1Title.innerHTML = titleContent.slice(0, h1Title.innerHTML.length+1);
         keySounds.playRandom();
         
-        if(h1Title.innerHTML.length >= firstTitleContent.length)
+        if(h1Title.innerHTML.length >= titleContent.length)
         {
             let expandAnimationClass = 'expand-animation';
 
             divAttributes.classList.add(expandAnimationClass);
             // setTimeout(() => {divAttributes.classList.remove(expandAnimationClass)}, 6000);
             clearInterval(h1TitleInterval);
-            setInterval(() => {
-                titleToEdit.innerHTML = titleToEdit.innerHTML === '|' ? titleToEdit.innerHTML = '&nbsp;' : titleToEdit.innerHTML = '|';
-            }, 1000);
+            // setInterval(() => {
+            //     titleToEdit.innerHTML = titleToEdit.innerHTML === '|' ? titleToEdit.innerHTML = '&nbsp;' : titleToEdit.innerHTML = '|';
+            // }, 700);
         }
-    }, 100);
+    }, 70);
 
     started = true;
 }
+
+(events.start = events.start || []).push(startStart);
 
 // window.addEventListener('load', startStart);
 

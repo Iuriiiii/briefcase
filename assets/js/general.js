@@ -1,6 +1,4 @@
-let clazz = 'active';
-let proactivityLine;
-let sections;
+let clazz = 'active', proactivityLine, sections, events = [];
 
 function callAt(time, callback)
 {
@@ -28,7 +26,7 @@ function callAt(time, callback)
 window.addEventListener('load', () => {
     sections = [...document.querySelectorAll('section')];
 
-    console.log(location.hash);
+    // console.log(location.hash);
     
     if(['', '#start'].includes(location.hash))
         startStart();
@@ -46,22 +44,23 @@ window.addEventListener('load', () => {
         if(id.startsWith('#'))
             id = id.slice(1);
 
-        if(id === 'start')
-            startStart();
+        // if(id === 'start')
+        //     startStart();
 
         sections.forEach(e => {
             
             if(e.id === id)
             {
-                e.style.display = 'block';
-
                 if(!e.classList.contains(clazz))
                     e.classList.add(clazz);
                 
+                if(events[id])
+                    events[id].forEach(c => c());
+
                 return;
             }
 
-            e.style.display = 'none';
+            // e.style.display = 'none';
             e.classList.remove(clazz);
         });
     }
