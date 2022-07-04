@@ -5,6 +5,21 @@
     --txt-color: rgb(36, 36, 36);
 
     --txt-light-color: lighter(var(--bg-color), var(--lighten-percentage));
+
+    --rainbow-color: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 1) 0%,
+        rgba(255, 154, 0, 1) 10%,
+        rgba(208, 222, 33, 1) 20%,
+        rgba(79, 220, 74, 1) 30%,
+        rgba(63, 218, 216, 1) 40%,
+        rgba(47, 201, 226, 1) 50%,
+        rgba(28, 127, 238, 1) 60%,
+        rgba(95, 21, 242, 1) 70%,
+        rgba(186, 12, 248, 1) 80%,
+        rgba(251, 7, 217, 1) 90%,
+        rgba(255, 0, 0, 1) 100%
+    );;
 }
 
 * {
@@ -67,6 +82,11 @@ body > main {
     text-align: center;
 }
 
+#tecs {
+    /* display: grid;
+    grid-template-rows: auto auto auto auto; */
+}
+
 .active {
     display: block;
     width: 700px;
@@ -89,6 +109,7 @@ img {
 .img-sz-s {
     width: 12%;
     height: 12%;
+    min-height: 80px;
 }
 
 .img-sz-l {
@@ -97,6 +118,7 @@ img {
     /* height: 100px; */
     height: 16%;
     max-height: 55px;
+    min-height: 40px;
 }
 
 .border-60 {
@@ -131,20 +153,7 @@ img {
 }
 
 .progress-line {
-    background: linear-gradient(
-        90deg,
-        rgba(255, 0, 0, 1) 0%,
-        rgba(255, 154, 0, 1) 10%,
-        rgba(208, 222, 33, 1) 20%,
-        rgba(79, 220, 74, 1) 30%,
-        rgba(63, 218, 216, 1) 40%,
-        rgba(47, 201, 226, 1) 50%,
-        rgba(28, 127, 238, 1) 60%,
-        rgba(95, 21, 242, 1) 70%,
-        rgba(186, 12, 248, 1) 80%,
-        rgba(251, 7, 217, 1) 90%,
-        rgba(255, 0, 0, 1) 100%
-    );
+    background: var(--rainbow-color);
     height: 8px;
 }
 
@@ -167,6 +176,10 @@ img {
     display: flex;
 }
 
+.flex-column {
+    flex-direction: column;
+}
+
 .flex-column-reverse {
     flex-direction: column;
 }
@@ -184,8 +197,14 @@ img {
     overflow: hidden;
 }
 
-/* .content-center {
+/* .logos-center {
+    display: grid;
+    grid-template-areas: "a b c d e"
+                         " f g h"
+                         "i j";
 } */
+
+
 
 @keyframes expand {
     from {
@@ -233,6 +252,14 @@ img {
     animation: fade 0.7s linear infinite alternate;
 }
 
+#mouse-shadow {
+    box-shadow: var(--rainbow-color);
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    display: inline-block;
+}
+
 @media screen and (min-width: 425px)
 {
     .img-sz-l {
@@ -244,6 +271,7 @@ img {
 {
     .img-sz-l {
         max-height: 80px;
+        min-height: 70px;
     }
 }
 
