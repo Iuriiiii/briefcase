@@ -36,6 +36,14 @@
 body {
     background-color: var(--body-background-color);
     font-family: Satoshi,Helvetica Neue,Helvetica,Arial,sans-serif;
+    color: white;
+}
+
+.backgroundr-codding {
+    position: absolute;
+    transform: rotate(-0.3rad);
+    top: -60px;
+    opacity: 0.1;
 }
 
 body > header {
@@ -65,8 +73,23 @@ main {
     justify-content: center;
 }
 
+main > section {
+    display: flex;
+    flex-direction: column;
+}
+
+main > section > header {
+    text-align: center;
+}
+
 h2 {
-    color: white;
+    font-size: clamp(1.2rem, 1vw, 1.5rem);
+    margin-bottom: 0;
+}
+
+p {
+    opacity: 0.5;
+    margin-top: 0;
 }
 
 @media screen and (max-width: 425px)
