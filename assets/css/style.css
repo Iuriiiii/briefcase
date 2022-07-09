@@ -103,8 +103,9 @@ h2 {
     margin-bottom: 0;
 }
 
-h2::before {
-    animation: edit-it 1s alternate-reverse infinite
+h2::after {
+    content: '|';
+    animation: fade-in 1s alternate-reverse infinite
 }
 
 p {

@@ -17,7 +17,7 @@ Element.prototype.value = function(v)
     return this.innerHTML;
 };
 
-Array.prototype.asyncEachTime = async function(cb, interval = 20, run)
+Array.prototype.asyncEachTime = function(cb, interval = 20, run)
 {
     return new Promise((resolve) => {
         if(typeof cb === 'number' && typeof interval === 'function')
