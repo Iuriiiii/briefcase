@@ -37,12 +37,15 @@ body {
     background-color: var(--body-background-color);
     font-family: Satoshi,Helvetica Neue,Helvetica,Arial,sans-serif;
     color: white;
+    overflow: hidden;
+    /* overflow-block: 100vh; */
 }
 
 .backgroundr-codding {
-    position: absolute;
+    position: fixed;
     transform: rotate(-0.3rad);
     top: -60px;
+    left: -80px;
     opacity: 0.1;
 }
 
@@ -54,6 +57,7 @@ body > header {
 nav {
     display: flex;
     flex-flow: row-reverse nowrap;
+    animation-delay: 3s;
 }
 
 a {
@@ -64,6 +68,18 @@ a {
 a:active, a:link, a:visited {
     text-decoration: none;
     color: var(--text-color-white);
+}
+
+nav > a:nth-child(1) {
+    animation: fade-in 1s ease-in-out;
+}
+
+nav > a:nth-child(2) {
+    animation: fade-in 0.5s ease-in-out;
+}
+
+nav > a:nth-child(3) {
+    animation: fade-in 1s ease-in-out;
 }
 
 main {
@@ -87,13 +103,17 @@ h2 {
     margin-bottom: 0;
 }
 
-p {
-    opacity: 0.5;
-    margin-top: 0;
+h2::before {
+    animation: edit-it 1s alternate-reverse infinite
 }
 
-@media screen and (max-width: 425px)
-{
+p {
+    opacity: 0;
+    margin-top: 0;
+    animation: fade-half-in 1s ease-in forwards 5.6s;
+}
+
+@media screen and (max-width: 425px) {
     body > header {
         /* filter: brightness(85%); */
         margin: 0;
@@ -107,5 +127,34 @@ p {
 
     a {
         margin: 0;
+    }
+}
+
+/* ANIMATIONS */
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-half-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 0.5;
+    }
+}
+
+@keyframes edit-it {
+    from {
+        content: '\0x00';
+    }
+    to {
+        content: '|';
     }
 }
