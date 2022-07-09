@@ -90,6 +90,11 @@ Array.prototype.eachTime = function(param1, param2, param3)
     }, interval, this[idx], idx, this, interval);
 };
 
+Function.prototype.fromCallback = function(...args)
+{
+    return (...theArgs) => {this(...theArgs)};
+};
+
 HTMLElement.prototype.toggleClass = function(clazz, expr)
 {
     let type = typeof expr;
@@ -156,9 +161,34 @@ function callAt(time, callback)
     console.log('Plz dont put paste & run code here...\nyou could vulnerate your personal information');
 })();
 
+Number.prototype.close = function(min, max)
+{
+    if(this < min)
+        return min;
+    else if(this > max)
+        return max;
+    else
+        return this;
+};
 
-window.addEventListener('load', () => {
+Number.prototype.hasDecimals = function()
+{
+    return this % 1 > 0;
+};
+
+window.addEventListener('load', () =>
+{
     sections = [...document.querySelectorAll('section')];
+
+    let wheelCounter = 0;
+
+    window.addEventListener('wheel', (e) =>
+    {
+        wheelCounter = (wheelCounter + e.deltaY / 100 / 2).close(0, sections.length-1);
+
+        if(!wheelCounter.hasDecimals())
+            slideTo(sections[wheelCounter].id);
+    });
 
     // mouseShadow = document.getElementById('mouse-shadow');
 
@@ -210,7 +240,7 @@ window.addEventListener('load', () => {
 
             e.forEach(section => section.classList.toggle(clazz, status));
 
-            if(status)
+            if(status && events[id])
                 events[id].forEach(c => c());
         });
     }
