@@ -29,6 +29,22 @@
     --body-background-color: #383838;
 }
 
+/* General classes */
+
+.progress-bar {
+    display: inline-block;
+    border: 1px solid black;
+    height: 10px;
+    /* width: 50%; */
+}
+
+.progress-line {
+    background: var(--rainbow-color);
+    height: 8px;
+}
+
+/* End general classes */
+
 * {
     box-sizing:border-box;
 }
@@ -82,19 +98,19 @@ nav > a:nth-child(3) {
     animation: fade-in 1s ease-in-out;
 }
 
-main {
+body > main {
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto;
     justify-content: center;
 }
 
-main > section {
+section {
     display: flex;
     flex-direction: column;
 }
 
-main > section > header {
+section > header {
     text-align: center;
 }
 
@@ -112,6 +128,31 @@ p {
     opacity: 0;
     margin-top: 0;
     animation: fade-half-in 1s ease-in forwards 5.6s;
+}
+
+section > main {
+    display: flex;
+    flex-flow: column wrap;
+    margin: 15px;
+}
+
+section > main > div {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    grid-template-rows: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+section > main > div > label {
+    /* flex-basis: 30%; */
+    display: block;
+}
+
+section > main > div > div {
+    /* flex-basis: 70%; */
+    display: block;
 }
 
 @media screen and (max-width: 425px) {
