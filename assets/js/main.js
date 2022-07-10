@@ -81,19 +81,43 @@ String.prototype.readFile = async function()
 };
 
 let classes = {hide: 'hide'};
+let elements = {};
+let sections = {['#home']: home, ['']: home, ['#tecs']: tecs, ['#projects']: projects};
+let section;
 
-document.addEventListener('DOMContentLoaded', async (e) =>
+async function home(e)
 {
     let h2;
-
+    let proactivityBar = document.querySelector('.proactivity-bar');
+    section.classList.remove(classes.hide);
+    
     (h2 = document.querySelector('body > main > section > header > h2'))
         .applyEffect('tipying', h2.dataset.text, 100).then(() =>
         {
-            document.querySelector('body > header').classList.remove(classes.hide);
+            elements.header.classList.remove(classes.hide);
             document.querySelector('body > main > section > header > p').classList.remove(classes.hide);
             document.querySelector('body > main > section > main').classList.remove(classes.hide);
+            
+            setInterval(() => proactivityBar.style.width = (97 + Math.random() * 8) + '%', 50);
         });
-    document.querySelector('.backgroundr-codding').applyEffect('tipying', await '/assets/css/style.css'.readFile(), 5);
+    document.querySelector('.background-codding-effect').applyEffect('tipying', await '/assets/css/style.css'.readFile(), 5);
+}
+
+function tecs(e)
+{
+    elements.header.classList.remove(classes.hide);
+    section.classList.remove(classes.hide);
+}
+
+function projects(e)
+{
+    elements.header.classList.remove(classes.hide);
+}
+
+document.addEventListener('DOMContentLoaded', (e) => {
+    elements.header = document.querySelector('body > header');
+    section = document.getElementById(location.hash.replace('#','') || 'home');
+    sections[location.hash](e);
 });
 
 // window.addEventListener('load', (e) => {
