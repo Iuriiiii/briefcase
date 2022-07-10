@@ -80,6 +80,8 @@ String.prototype.readFile = async function()
     return fetch(this.toString()).then(r => r.text());
 };
 
+let classes = {hide: 'hide'};
+
 document.addEventListener('DOMContentLoaded', async (e) =>
 {
     let h2;
@@ -87,7 +89,9 @@ document.addEventListener('DOMContentLoaded', async (e) =>
     (h2 = document.querySelector('body > main > section > header > h2'))
         .applyEffect('tipying', h2.dataset.text, 100).then(() =>
         {
-            console.log('jelp');
+            document.querySelector('body > header').classList.remove(classes.hide);
+            document.querySelector('body > main > section > header > p').classList.remove(classes.hide);
+            document.querySelector('body > main > section > main').classList.remove(classes.hide);
         });
     document.querySelector('.backgroundr-codding').applyEffect('tipying', await '/assets/css/style.css'.readFile(), 5);
 });
