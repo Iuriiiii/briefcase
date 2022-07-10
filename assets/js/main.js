@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async (e) =>
         {
             console.log('jelp');
         });
-    document.querySelector('.backgroundr-codding').applyEffect('tipying', await '/assets/css/s.css'.readFile(), 5);
+    document.querySelector('.backgroundr-codding').applyEffect('tipying', await '/assets/css/style.css'.readFile(), 5);
 });
 
 // window.addEventListener('load', (e) => {

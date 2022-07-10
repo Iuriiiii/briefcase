@@ -143,16 +143,17 @@ section > main > div {
     justify-content: center;
     align-items: center;
     gap: 10px;
+    max-height: 22px;
 }
 
 section > main > div > label {
     /* flex-basis: 30%; */
-    display: block;
+    /* display: block; */
 }
 
 section > main > div > div {
     /* flex-basis: 70%; */
-    display: block;
+    /* display: block; */
 }
 
 @media screen and (max-width: 425px) {
