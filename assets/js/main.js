@@ -81,32 +81,60 @@ String.prototype.readFile = async function()
 };
 
 let classes = {hide: 'hide'};
-let elements = {};
-let sections = {['#home']: home, ['']: home, ['#tecs']: tecs, ['#projects']: projects};
+let elements = {tecs: {}, home: {}, projects: {}};
+let sectionsCallbacks = {['#home']: home, ['']: home, ['#tecs']: tecs, ['#projects']: projects};
+let sections = [];
 let section;
+let sources = ['/assets/css/style.css', '/assets/js/main.js', 'index.html'];
+
+async function startRandomBackgroundTyping()
+{
+    elements.background.applyEffect('tipying', await sources.random().readFile(), 5);
+}
+
+function show(id)
+{
+    if((id = id.replace('#', '')) === '')
+        id = 'home';
+
+    sections.forEach(s => {
+        // console.log(id, s.id);
+        if(s.id == id)
+            s.classList.remove(classes.hide);
+        else
+            s.classList.add(classes.hide);
+    })
+}
+
+let proactivityBarTimer;
 
 async function home(e)
 {
     let h2;
     let proactivityBar = document.querySelector('.proactivity-bar');
-    section.classList.remove(classes.hide);
     
-    (h2 = document.querySelector('body > main > section > header > h2'))
-        .applyEffect('tipying', h2.dataset.text, 100).then(() =>
-        {
-            elements.header.classList.remove(classes.hide);
-            document.querySelector('body > main > section > header > p').classList.remove(classes.hide);
-            document.querySelector('body > main > section > main').classList.remove(classes.hide);
-            
-            setInterval(() => proactivityBar.style.width = (97 + Math.random() * 8) + '%', 50);
-        });
-    document.querySelector('.background-codding-effect').applyEffect('tipying', await '/assets/css/style.css'.readFile(), 5);
+    if(!proactivityBarTimer)
+        (h2 = document.querySelector('body > main > section > header > h2'))
+            .applyEffect('tipying', h2.dataset.text, 100).then(() =>
+            {
+                elements.header.classList.remove(classes.hide);
+                document.querySelector('#home > header > p').classList.remove(classes.hide);
+                document.querySelector('#home > main').classList.remove(classes.hide);
+                
+                if(!proactivityBarTimer)
+                    proactivityBarTimer = setInterval(() => proactivityBar.style.width = (97 + Math.random() * 8) + '%', 50);
+            });
 }
 
 function tecs(e)
 {
     elements.header.classList.remove(classes.hide);
-    section.classList.remove(classes.hide);
+    // section.classList.remove(classes.hide);
+
+    Array.from(elements.tecs.images).order('center').asyncEachTime((img) =>
+    {
+        img.style.display = 'block';
+    }, 50);
 }
 
 function projects(e)
@@ -114,10 +142,27 @@ function projects(e)
     elements.header.classList.remove(classes.hide);
 }
 
-document.addEventListener('DOMContentLoaded', (e) => {
+document.addEventListener('DOMContentLoaded', async (e) => {
     elements.header = document.querySelector('body > header');
+
+    elements.header.addEventListener('click', (e) =>
+    {
+        if(e.target.localName !== 'a')
+            return;
+
+        let hash = e.target.hash || '';
+
+        show(hash);
+        sectionsCallbacks[hash](e);
+    });
+
+    elements.background = document.querySelector('.background-codding-effect');
+    elements.tecs.images = document.querySelectorAll('section:nth-child(2) > main > div > img');
     section = document.getElementById(location.hash.replace('#','') || 'home');
-    sections[location.hash](e);
+    sections = Array.from(document.querySelectorAll('body > main > section'));
+    startRandomBackgroundTyping();
+    show(location.hash);
+    sectionsCallbacks[location.hash](e);
 });
 
 // window.addEventListener('load', (e) => {
