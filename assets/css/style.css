@@ -68,6 +68,7 @@ body {
     color: white;
     overflow: hidden;
     height: 98vh;
+    /* padding-top: 40px; Esta línea solo fue puesta para corregir un error en los navegadores */
     /* overflow-block: 100vh; */
 }
 
@@ -98,6 +99,7 @@ nav {
 a {
     text-decoration: none;
     margin-left: 20px;
+    z-index: 1;
 }
 
 a:active, a:link, a:visited {
@@ -123,14 +125,18 @@ body > main {
     grid-template-rows: auto;
     justify-content: center;
     align-items: center;
-    height: 90%;
+    height: 70vh;
+    /* height: 90%; */
+    height: 85%;
 }
 
 section {
     /* display: flex;
     flex-direction: column; */
     position: relative;
-    top: -30px;
+    /* top: -30px; */
+    /* align-self: center; */
+    max-height: 90vh;
 }
 
 section > header {
@@ -191,6 +197,12 @@ img {
     animation: fade-in 1s ease-in-out;
 }
 
+footer {
+    position: fixed;
+    bottom: 0;
+    margin-bottom: 10px;
+}
+
 @media screen and (max-width: 425px) {
     body > header {
         /* filter: brightness(85%); */
@@ -208,9 +220,19 @@ img {
         margin: 0;
     }
 
+    body > main {
+        height: 70%;
+    }
+
     #tecs > main > div {
         width: 50px;
         height: 50px;
+    }
+
+    footer {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
     }
 }
 

@@ -17,6 +17,14 @@ Element.prototype.value = function(v)
     return this.innerHTML;
 };
 
+Element.prototype.text = function(v)
+{
+    if(typeof v !== 'undefined')
+        this.innerText = v;
+
+    return this.innerText;
+};
+
 Array.prototype.asyncEachTime = function(cb, interval = 20, run)
 {
     return new Promise((resolve) => {
@@ -47,7 +55,7 @@ Array.prototype.asyncEachTime = function(cb, interval = 20, run)
     });
 };
 
-let chars = {['&amp;']: '&', ['|']: '<br>'}
+let chars = {['&amp;']: '&', ['|']: '\r\n'}
 
 function effectTipying(element, time = 20, content)
 {
@@ -57,11 +65,11 @@ function effectTipying(element, time = 20, content)
         else
             content = time, time = 20;
 
-    content = (content ? content : element.value()).replace('&amp;', '&').split('');
-    element.value('');
+    content = (content ? content : element.text()).replace('&amp;', '&').split('');
+    element.text('');
 
     return content.asyncEachTime((char, index, array) => {
-        element.value(element.value() + (chars[char] || char));
+        element.text(element.text() + (chars[char] || char));
     }, time, true);
 }
 
@@ -77,91 +85,124 @@ Element.prototype.applyEffect = function(effect, ...args)
 
 String.prototype.readFile = async function()
 {
-    return fetch(this.toString()).then(r => r.text());
+    return fetch(this.toString(), {headers: {'Content-Type': 'text/plain'}}).then(r => r.text());
 };
 
 let classes = {hide: 'hide'};
-let elements = {tecs: {}, home: {}, projects: {}};
+let elements = {tecs: {}, a: [], home: {}, projects: {}};
 let sectionsCallbacks = {['#home']: home, ['']: home, ['#tecs']: tecs, ['#projects']: projects};
 let sections = [];
 let section;
 let sources = ['/assets/css/style.css', '/assets/js/main.js', 'index.html'];
+let hashStack = [];
 
 async function startRandomBackgroundTyping()
 {
-    elements.background.applyEffect('tipying', await sources.random().readFile(), 5);
+    elements.background.applyEffect('tipying', (await sources.random().readFile()).replaceAll('\r\n',' '), 5);
 }
 
-function show(id)
+function highlightA(hash)
 {
-    if((id = id.replace('#', '')) === '')
-        id = 'home';
+    
+}
+
+function show(hash)
+{
+    if(!hash)
+        hash = '#home';
 
     sections.forEach(s => {
-        // console.log(id, s.id);
-        if(s.id == id)
+        if(hash.endsWith(s.id))
             s.classList.remove(classes.hide);
         else
             s.classList.add(classes.hide);
-    })
+    });
+
+    elements.a.forEach((e) => e.style.textDecoration = e.getAttribute('href') === hash ? 'underline' : 'none');
 }
 
 let proactivityBarTimer;
 
 async function home(e)
 {
+    console.log('home');
     let h2;
     let proactivityBar = document.querySelector('.proactivity-bar');
     
     if(!proactivityBarTimer)
+    {
         (h2 = document.querySelector('body > main > section > header > h2'))
             .applyEffect('tipying', h2.dataset.text, 100).then(() =>
             {
                 elements.header.classList.remove(classes.hide);
+                elements.footer.classList.remove(classes.hide);
                 document.querySelector('#home > header > p').classList.remove(classes.hide);
                 document.querySelector('#home > main').classList.remove(classes.hide);
                 
                 if(!proactivityBarTimer)
                     proactivityBarTimer = setInterval(() => proactivityBar.style.width = (97 + Math.random() * 8) + '%', 50);
             });
+    }
 }
 
 function tecs(e)
 {
     elements.header.classList.remove(classes.hide);
+    elements.footer.classList.remove(classes.hide);
     // section.classList.remove(classes.hide);
 
     Array.from(elements.tecs.images).order('center').asyncEachTime((img) =>
     {
         img.style.display = 'block';
-    }, 50);
+    }, 80);
 }
 
 function projects(e)
 {
     elements.header.classList.remove(classes.hide);
+    elements.footer.classList.remove(classes.hide);
 }
 
 document.addEventListener('DOMContentLoaded', async (e) => {
     elements.header = document.querySelector('body > header');
+    elements.footer = document.querySelector('footer');
 
-    elements.header.addEventListener('click', (e) =>
+    // elements.header.addEventListener('click', (e) =>
+    // {
+    //     if(e.target.localName !== 'a')
+    //         return;
+
+    //     let hash = e.target.hash || '';
+
+    //     show(hash);
+    //     sectionsCallbacks[hash](e);
+    //     e.stopPropagation();
+    // });
+
+    elements.a = Array.from(document.querySelectorAll('nav > a'));
+
+    function getId()
     {
-        if(e.target.localName !== 'a')
-            return;
-
-        let hash = e.target.hash || '';
-
-        show(hash);
-        sectionsCallbacks[hash](e);
-    });
+        return location.hash.replace('#','') || 'home';
+    }
 
     elements.background = document.querySelector('.background-codding-effect');
-    elements.tecs.images = document.querySelectorAll('section:nth-child(2) > main > div > img');
-    section = document.getElementById(location.hash.replace('#','') || 'home');
-    sections = Array.from(document.querySelectorAll('body > main > section'));
     startRandomBackgroundTyping();
+    elements.tecs.images = document.querySelectorAll('section:nth-child(2) > main > div > img');
+    hashStack.push(getId());
+    section = document.getElementById(hashStack.at(-1));
+    sections = Array.from(document.querySelectorAll('body > main > section'));
     show(location.hash);
+    sectionsCallbacks[location.hash](e);
+});
+
+window.addEventListener('hashchange', (e) =>
+{
+    if(e.oldURL.endsWith(location.hash))
+        return;
+
+    show(location.hash);
+    // console.log(location.hash);
     sectionsCallbacks[location.hash](e);
 });
 
